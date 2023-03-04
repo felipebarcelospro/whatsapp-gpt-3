@@ -27,10 +27,10 @@ async function handleIncomingMessage(message: Message) {
 	// Prevent handling old messages
 	if (message.timestamp != null) {
 		const messageTimestamp = new Date(message.timestamp * 1000);
-		
+
 		// If startTimestamp is null, the bot is not ready yet
 		if (botReadyTimestamp == null) {
-			cli.print("Ignoring message because bot is not ready yet: " + messageString)
+			cli.print("Ignoring message because bot is not ready yet: " + messageString);
 			return;
 		}
 
@@ -109,6 +109,13 @@ async function handleIncomingMessage(message: Message) {
 
 	// GPT (only <prompt>)
 	if (!config.prefixEnabled) {
+		// DALLE (!dalle <prompt>)
+		if (startsWithIgnoreCase(messageString, config.dallePrefix)) {
+			const prompt = messageString.substring(config.dallePrefix.length + 1);
+			await handleMessageDALLE(message, prompt);
+			return;
+		}
+
 		await handleMessageGPT(message, messageString);
 		return;
 	}
@@ -126,7 +133,6 @@ async function handleIncomingMessage(message: Message) {
 		await handleMessageDALLE(message, prompt);
 		return;
 	}
-
 }
 
 export { handleIncomingMessage };
