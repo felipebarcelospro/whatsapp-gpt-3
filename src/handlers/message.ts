@@ -116,6 +116,16 @@ async function handleIncomingMessage(message: Message) {
 			return;
 		}
 
+		if (message.from.includes("@g.us")) {
+			const mentionedIds: string[] = message.mentionedIds;
+			const botNumber = `${config.botNumber}@c.us`;
+
+			if (!mentionedIds.includes(botNumber)) return;
+
+			await handleMessageGPT(message, messageString);
+			return;
+		}
+
 		await handleMessageGPT(message, messageString);
 		return;
 	}

@@ -24,6 +24,9 @@ interface IConfig {
 	ttsEnabled: boolean;
 	transcriptionEnabled: boolean;
 	transcriptionMode: TranscriptionMode;
+
+	// Number
+	botNumber: string;
 }
 
 // Config
@@ -46,7 +49,10 @@ const config: IConfig = {
 
 	// Transcription
 	transcriptionEnabled: getEnvBooleanWithDefault("TRANSCRIPTION_ENABLED", false), // Default: false
-	transcriptionMode: getEnvTranscriptionMode() // Default: local
+	transcriptionMode: getEnvTranscriptionMode(), // Default: local
+
+	// Number
+	botNumber: process.env.BOT_NUMBER || "551132803849" // Default: "551132803849"
 };
 
 /**
