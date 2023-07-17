@@ -6,7 +6,7 @@
 	"author": "Askrella Software Agency UG (haftungsbeschränkt)",
 	"scripts": {
 		"build": "tsc",
-		"start": "node dist/index.js",
+		"start": "npx vite-node src/index.ts",
 		"dev": "npx vite-node src/index.ts",
 		"prettier": "prettier --write ."
 	},
